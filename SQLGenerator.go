@@ -36,25 +36,30 @@ func main() {
 		println("选择要填入SQL的值:")
 		fmt.Scanln(&selectedSQLSpot)
 		println(getChonsenTemplate(templateSlices, selectedSQLSpot))
-		printSheetTitle(rows)
 		println("选择输入自定义值或读取表单列:")
 		fmt.Scanln(&chosenType)
 		if chosenType == 2 {
+			printSheetTitle(rows)
 			println("选择对应的值对应的表单列")
 			fmt.Scanln(&selectedRow)
 			SQLChosen[templateSlices[selectedSQLSpot]] = selectedRow
+			for i, point := range points {
+				if point == selectedSQLSpot {
+					points = append(points[:i], points[i+1:]...)
+				}
+			}
 		} else if chosenType == 1 {
 			println("输入自定义模板,", getChonsenTemplate(templateSlices, selectedSQLSpot), ":")
 			var cosSpot = new(CostumeSQLSpot)
 			fmt.Scanln(&cosSpot.value)
 			SQLChosen[templateSlices[selectedSQLSpot]] = cosSpot
-		}
-
-		for i, point := range points {
-			if point == selectedSQLSpot {
-				points = append(points[:i], points[i+1:]...)
+			for i, point := range points {
+				if point == selectedSQLSpot {
+					points = append(points[:i], points[i+1:]...)
+				}
 			}
 		}
+
 	}
 }
 
