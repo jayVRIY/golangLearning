@@ -8,8 +8,10 @@ func sqlFormat(template string) ([]string, []int) {
 		switchSpot  []int
 	)
 	for i, char := range template {
-		if i != len(template) {
-			if string(char) == "$" && string(template[i+1]) == "{" {
+		if i+1 != len(template) {
+			c := string(char)
+			cp := string(template[i+1])
+			if c == "$" && cp == "{" {
 				startPoints = append(startPoints, i)
 			}
 		}
